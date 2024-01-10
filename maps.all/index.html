@@ -20,6 +20,8 @@
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 800px;
         }
         #image-list {
             margin-top: 20px;
@@ -27,17 +29,37 @@
         #image-list ul {
             list-style-type: none;
             padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
         }
         #image-list li {
             margin-bottom: 10px;
+            background-color: #2f2f2f;
+            padding: 10px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+        #image-list li:hover {
+            background-color: #3f3f3f;
         }
         #image-list a {
             color: #bb86fc;
             text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            padding: 10px 40px;
+            border: 1px solid #bb86fc;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            margin: 5px;
         }
+        
         #image-list a:hover {
-            color: #3700b3;
-            text-decoration: underline;
+            color: #121212;
+            text-decoration: none;
+            background-color: #bb86fc;
         }
     </style>
 </head>
