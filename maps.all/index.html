@@ -1,1 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title id="title">Loading...</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        #content {
+            text-align: center;
+            background-color: #1f1f1f;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        #image-list {
+            margin-top: 20px;
+        }
+        #image-list ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        #image-list li {
+            margin-bottom: 10px;
+        }
+        #image-list a {
+            color: #bb86fc;
+            text-decoration: none;
+        }
+        #image-list a:hover {
+            color: #3700b3;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div id="content">
+        <h1 id="header">Loading...</h1>
+        <div id="image-list"></div>
+    </div>
 
+    <script>
+        let path = window.location.pathname.split('/')[1]; 
+
+        document.getElementById('title').textContent = `${path} media`;
+        document.getElementById('header').textContent = `${path} media`;
+
+        fetch(`https://api.github.com/repos/Xordas/media.xordas.me/contents/${path}`)
+            .then(response => response.json())
+            .then(data => {
+                const list = document.createElement('ul');
+
+                data.forEach(file => {
+                    if (file.name.endsWith('.png') || file.name.endsWith('.jpg') || file.name.endsWith('.jpeg')) {
+                        const listItem = document.createElement('li');
+                        const link = document.createElement('a');
+
+                        link.href = `https://media.xordas.me/${path}/${file.name}`;
+                        link.textContent = file.name;
+
+                        listItem.appendChild(link);
+                        list.appendChild(listItem);
+                    }
+                });
+
+                document.getElementById('image-list').appendChild(list);
+            })
+            .catch(error => console.error('Error:', error));
+    </script>
+</body>
+</html>
