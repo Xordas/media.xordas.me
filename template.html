@@ -88,6 +88,10 @@
     <script>
         let path = window.location.pathname.split('/')[1]; 
 
+        if (path === 'index.html') {
+            path = '';
+        }
+
         document.getElementById('title').textContent = `${path} media`;
         document.getElementById('header').textContent = `${path} media`;
 
