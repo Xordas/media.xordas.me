@@ -101,7 +101,7 @@
                 const list = document.createElement('ul');
 
                 data.forEach(file => {
-                    if (file.name.endsWith('.png') || file.name.endsWith('.jpg') || file.name.endsWith('.jpeg')) {
+                    if (!file.name.endsWith('.html') && !file.name.endsWith('.css') && !file.name.endsWith('.js')) {
                         const listItem = document.createElement('li');
                         const link = document.createElement('a');
 
