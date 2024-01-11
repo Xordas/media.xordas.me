@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title id="title">Loading...</title>
+</head>
+<body>
+    <div id="content"></div>
+
+    <script>
+        fetch('https://media.xordas.me/template.html')
+            .then(response => response.text())
+            .then(data => {
+                console.log(data); 
+                document.getElementById('content').innerHTML = data;
+            })
+            .catch(error => console.error('Error:', error));
+    </script>
+</body>
+</html>
