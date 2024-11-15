@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title id="title">Loading...</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        #content {
+            text-align: center;
+            background-color: #1f1f1f;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 800px;
+        }
+        #image-list {
+            margin-top: 20px;
+        }
+        #image-list ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        #image-list li {
+            margin-bottom: 10px;
+            background-color: #2f2f2f;
+            padding: 10px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+            box-sizing: border-box;
+            margin: 10px;
+            flex-grow: 1;
+            flex-basis: calc(33.33% - 20px);
+        }
+
+        @media (min-width: 600px) {
+            #image-list li {
+                flex-basis: calc(50% - 20px);  
+            }
+        }
+
+        @media (min-width: 900px) {
+            #image-list li {
+                flex-basis: calc(33.33% - 20px);
+            }
+        }
+
+        #image-list a {
+            color: #bb86fc;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+            padding: 10px 40px;
+            border: 1px solid #bb86fc;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        #image-list li:hover {
+            background-color: #3f3f3f;
+        }
+        #image-list a:hover {
+            color: #121212;
+            text-decoration: none;
+            background-color: #bb86fc;
+        }
+    </style>
+</head>
+<body>
+    <div id="content">
+        <h1 id="header">Loading...</h1>
+        <div id="image-list"></div>
+    </div>
+
+    <script>
+        let path = window.location.pathname.split('/')[1]; 
+
+        if (path === 'index.html') {
+            path = '';
+        }
+
+        document.getElementById('title').textContent = `${path} media`;
+        document.getElementById('header').textContent = `${path} media`;
+
+        fetch(`https://api.github.com/repos/Xordas/media.xordas.me/contents/${path}`)
+            .then(response => response.json())
+            .then(data => {
+                const list = document.createElement('ul');
+
+                data.forEach(file => {
+                    if (!file.name.endsWith('.html') && !file.name.endsWith('.css') && !file.name.endsWith('.js')) {
+                        const listItem = document.createElement('li');
+                        const link = document.createElement('a');
+
+                        link.href = `https://media.xordas.me/${path}/${file.name}`;
+                        link.textContent = file.name;
+
+                        listItem.appendChild(link);
+                        list.appendChild(listItem);
+                    }
+                });
+
+                document.getElementById('image-list').appendChild(list);
+            })
+            .catch(error => console.error('Error:', error));
+    </script>
+</body>
+</html>
